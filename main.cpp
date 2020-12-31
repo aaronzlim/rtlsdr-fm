@@ -2,6 +2,7 @@
 #include <vector>
 #include <complex>
 #include <rtl-sdr.h>
+#include <fstream> // DEBUG
 
 using namespace std;
 
@@ -136,7 +137,7 @@ int main(int argc, char** argv) {
     float gain = 0.0;
     int agc_en = 0;
     uint32_t device_index = 0;
-    uint32_t block_size = 512;
+    uint32_t block_size = 2048;
     uint32_t buffer_size = 2*block_size; // Buffer holds 2 pieces of data (I/Q) for every sample
 
     // Define variables used to configure and read from the RTL-SDR
@@ -182,9 +183,10 @@ int main(int argc, char** argv) {
         cout << buffer_size << " samples." << endl;
         }
 
+    ofstream outfile("../debug-data/iq_fs1058400.txt", ofstream::trunc);
     for (int i=0; i < iq.size(); i++) {
         iq[i] = complex<int32_t>(buf[2*i], buf[2*i+1]); // Deinterleave IQ data
-        cout << iq[i] << endl; // DEBUG
+        outfile << (int)buf[2*i] << "\n" << (int)buf[2*i+1] << "\n"; // DEBUG
     }
 
     if (sdr) {

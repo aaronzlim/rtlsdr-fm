@@ -39,3 +39,9 @@ build/
 
 # MAC
 .DS_Store
+
+# Debug
+debug-data/
+
+# Python
+env/
