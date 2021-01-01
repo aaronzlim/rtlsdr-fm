@@ -1,8 +1,13 @@
+#include <complex>
 #include <iostream>
 #include <vector>
-#include <complex>
+
 #include <rtl-sdr.h>
-#include <fstream> // DEBUG
+
+#include "dspbase/filter.hpp"
+
+// DEBUG INCLUDES
+#include <fstream>
 
 using namespace std;
 
@@ -183,7 +188,7 @@ int main(int argc, char** argv) {
         cout << buffer_size << " samples." << endl;
         }
 
-    ofstream outfile("../debug-data/iq_fs1058400.txt", ofstream::trunc);
+    ofstream outfile("../debug-data/iq_fs1058400.txt");
     for (int i=0; i < iq.size(); i++) {
         iq[i] = complex<int32_t>(buf[2*i], buf[2*i+1]); // Deinterleave IQ data
         outfile << (int)buf[2*i] << "\n" << (int)buf[2*i+1] << "\n"; // DEBUG
