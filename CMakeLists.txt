@@ -4,7 +4,9 @@ project(rtlsdr-fm VERSION 0.1.0)
 # https://cmake.org/cmake/help/latest/prop_tgt/CXX_STANDARD.html
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+
+include(CTest)
+enable_testing()
 
 find_package(Boost)
 find_package(PkgConfig)
@@ -37,12 +39,10 @@ endif()
 set(RTLSDR_INCLUDE_DIRS ${RTLSDR_INCLUDE_DIR} ${LIBUSB_INCLUDE_DIR})
 set(RTLSDR_LIBRARIES    ${RTLSDR_LIBRARY} ${LIBUSB_LIBRARY})
 
-include(CTest)
-enable_testing()
-
-add_executable(rtlsdr-fm main.cpp)
+add_executable(rtlsdr-fm src/main.cpp)
 
 include_directories(/usr/local/include)
+
 link_directories(/usr/local/lib)
 
 target_include_directories(rtlsdr-fm PUBLIC
